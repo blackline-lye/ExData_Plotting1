@@ -1,10 +1,10 @@
 library(data.table)
 
-windows(480, 480)
-
 data <- fread("household_power_consumption.txt", sep=";",na.strings="?")
 data <- data[Date %in% c("1/2/2007", "2/2/2007")]
 data <- data[, Datetime:=as.POSIXct(paste(Date,Time), format="%d/%m/%Y %H:%M:%S")]
+
+png("plot4.png", 480, 480)
 
 par(mfcol=c(2,2))
 
@@ -19,5 +19,4 @@ plot(data$Datetime, data$Voltage, type="l", ylab="Voltage", xlab="datetime")
 
 plot(data$Datetime, data$Global_reactive_power, type="l", ylab="Global_reactive_power", xlab="datetime")
 
-dev.copy(png, file="plot4.png")
 dev.off()
